@@ -30,7 +30,7 @@ r.encoding=r.apparent_encoding
 demo=r.text
 # print(demo)
 demo=etree.HTML(r.text)
-urls=demo.xpath('//*[@id="list"]/dl')
+urls=demo.xpath('//*[@id="list"]/dl')    #这里想用xpath着
 for url in urls:
     url1=url
     print(url1)
