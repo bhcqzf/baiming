@@ -62,4 +62,5 @@ def download_one_book(url):
 # url1=str(url)
 # download_one_book(url1)
 # print(url1)
-download_one_book('http://www.xbiquge.la/1/1690/')   //此处输入要下载小说目录的链接
+if _name_='_main_':
+    download_one_book('http://www.xbiquge.la/1/1690/')   //此处输入要下载小说目录的链接
