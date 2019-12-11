@@ -1,0 +1,2 @@
+huhui='fff'
+type(huhui)
