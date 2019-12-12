@@ -1,6 +1,6 @@
+import requests
+from bs4 import BeautifulSoup
 def download_one_charcter(url):
-    import requests
-    from bs4 import BeautifulSoup
     r = requests.get(url)
     r.encoding = r.apparent_encoding
     demo = r.text
@@ -27,9 +27,6 @@ def download_one_charcter(url):
             f.write(title + '\n')
             f.write(txt11)
     pass
-
-import requests
-from bs4 import BeautifulSoup
 bookmulu='http://www.shuquge.com/txt/8072/index.html'   #此处为要下载小说的目录链接
 r=requests.get(bookmulu)
 bookmulu_pre=bookmulu.replace('index.html','')
