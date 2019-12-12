@@ -55,5 +55,7 @@ def download_one_book(url):
 # url1=str(url)
 # download_one_book(url1)
 # print(url1)
+#pool=pool()
+#pool.map(download_one,download_one_book)
 if __name__ =='__main__':
     download_one_book('http://www.xbiquge.la/1/1690/')   //此处输入要下载小说目录的链接
