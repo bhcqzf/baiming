@@ -1,6 +1,6 @@
-import requests
+import requests,re,os
 from bs4 import BeautifulSoup
-import re
+
 
 
 
@@ -8,10 +8,10 @@ import re
 def downdoad_one_music(one_book_title,one_page_url,one_title):
     ture_api = ('https://www.ximalaya.com/revision/play/v1/audio?id=' + one_page_url + '&ptype=1')
     header = {'User-Agent': 'Mozilla/5.0'}
-    r = requests.get(ture_api, headers=header)
+    r = requests.get(ture_api,headers=header)
     demo = r.text
     # print(r.status_code)
-    r.encoding = r.apparent_encoding
+    # r.encoding = r.apparent_encoding
     # print(r.text)
     soup = BeautifulSoup(demo, 'lxml')
     # print(soup.prettify())
@@ -24,10 +24,22 @@ def downdoad_one_music(one_book_title,one_page_url,one_title):
 
     r = requests.get(final_url)
     # print(r.status_code)
+    '''加了os判断路径之后，运行速度变慢，目前不知道原因'''
+    if not os.path.exists(one_book_title):
+        os.mkdir(one_book_title)
+        if not os.path.exists(one_book_title+'/'+one_title + '.mp4'):
+            with open(one_book_title+'/'+one_title + '.mp4', 'wb') as fb:
+                print('正在下载。。。' + one_title)
+                fb.write(r.content)
+    else:
+    #
+        if not os.path.exists(one_book_title+'/'+one_title + '.mp4'):
+            with open(one_book_title+'/'+one_title + '.mp4', 'wb') as fb:
+                print('正在下载。。。' + one_title)
+                fb.write(r.content)
+        # else:
+        #     pass
 
-    with open('有声书'+'/'+one_title + '.mp4', 'wb') as fb:
-        print('正在下载。。。' + one_title)
-        fb.write(r.content)
 
 
     pass
@@ -37,19 +49,14 @@ def get_all_pages(url_first):               #此处输入小说目录首页
     r = requests.get(url_first, headers=header)
     r.encoding = r.apparent_encoding
     demo = r.text
-    # print(r.status_code)
-
-    # print(r.text)
     soup = BeautifulSoup(demo, 'lxml')
     # print(soup.prettify())
     url_ids = soup.select('#anchor_sound_list > div.sound-list._c2 > div > nav > ul > li:nth-child(7) > a > span')
     n = url_ids[-1].text
     n = int(n)
-    # print(n)
     for i in range(n):
         i = str(i)
         one_page = ('https://www.ximalaya.com/youshengshu/10331475/p' + i)
-        # print(one_page)
         header = {'User-Agent': 'Mozilla/5.0'}
         r = requests.get(one_page, headers=header)
         demo = r.text
@@ -62,14 +69,9 @@ def get_all_pages(url_first):               #此处输入小说目录首页
         one_book_title = soup.select(
             '#award > main > div.album-detail > div.clearfix > div.detail.layout-main > div.detail-wrapper._II0L > div.album-info.clearfix._II0L > div.info._II0L > h1')[
             0].text
-        # print(one_book_title)
-        # print(url_ids)
         for url_id in url_ids:
-            # print(url_id.attrs)
             one_page_url = url_id.get('href').split('/')[-1]
             one_title = url_id.get('title')
-            # print(one_title)
-            # print(one_page_url)
             downdoad_one_music(one_book_title,one_page_url, one_title)
 
     pass
