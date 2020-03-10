@@ -1,0 +1,71 @@
+import time
+from selenium import webdriver
+import datetime
+drive=webdriver.Chrome(r'C:\Users\Administrator\PycharmProjects\baihai\淘宝抢东西\chromedriver.exe')
+#登陆淘宝，扫码登陆
+def login():
+    drive.maximize_window()
+    drive.get('https://www.taobao.com/')
+    time.sleep(1)
+    drive.find_element_by_xpath('//*[@id="J_SiteNavLogin"]/div[1]/div[1]/a[1]').click()
+# drive.find_element_by_xpath('//*[@id="TPL_username_1"]').clear()
+# drive.find_element_by_xpath('//*[@id="TPL_username_1"]').send_keys(uses["ue"])
+# drive.find_element_by_xpath('//*[@id="TPL_password_1"]').clear()
+# drive.find_element_by_xpath('//*[@id="TPL_password_1"]').send_keys(uses["pass"])
+# drive.find_element_by_xpath('//*[@id="J_SubmitStatic"]').click()
+
+
+# 导入时间
+# import datetime
+# if shijian = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%M.%f') > buy_time:
+
+
+#进入购物车
+def car():
+    while 1:
+        try :
+            # drive.find_element_by_xpath('')
+            drive.find_element_by_xpath('//*[@id="mc-menu-hd"]/span[2]').click()
+            break
+        except:
+            print ('还没发现购物车')
+#点击结算
+def get_ord():
+    while 1:
+        try :
+            drive.find_element_by_xpath('//*[@id="J_SelectAll1"]/div/label').click()
+            break
+        except:
+            print ('还没发现全选,购物车里有东西吗')
+    while 1 :
+        try :
+            # drive.find_element_by_xpath('//*[@id="J_Go"]/span')
+            drive.find_element_by_xpath('//*[@id="J_Go"]/span').click()
+            break
+        except:
+            print('没结算按钮')
+    while  1 :
+        try :
+            if drive.find_element_by_xpath('//*[@id="J_Go"]/span'):
+                drive.find_element_by_xpath('//*[@id="J_Go"]/span').click()
+                print('正在点')
+            else:
+              pass
+        except:
+            break
+#提交订单
+def put_ord():
+    while True :
+        try :
+            # drive.find_element_by_xpath('//*[@id="submitOrderPC_1"]/div[1]/a[2]')
+            drive.find_element_by_xpath('//*[@id="submitOrderPC_1"]/div[1]/a[2]').click()
+            print('成功')
+            break
+        except:
+            print('没提订单')
+#主程序
+if __name__ == "__main__":
+    login()
+    car()
+    get_ord()
+    put_ord()
