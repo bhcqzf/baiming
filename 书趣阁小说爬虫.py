@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-
+from multiprocessing.dummy import Pool
 
 def download_one_charcter(url):
     r = requests.get(url)
@@ -40,11 +40,12 @@ def download_one_book(bookmulu):
             download_one_charcter(url)
     pass
 
-
+bookmulu = 'http://www.shuquge.com/txt/8072/index.html'
 def main():
-    bookmulu = 'http://www.shuquge.com/txt/8072/index.html'  # 此处为要下载小说的目录链接
     download_one_book(bookmulu)
-    pass
+      # 此处为要下载小说的目录链接
+    # pool = Pool()                    #加了多线程，而我也不知道这东西到底有没有用
+    # pool.map(download_one_charcter, download_one_book(bookmulu))
 
 
 if __name__ == '__main__':
